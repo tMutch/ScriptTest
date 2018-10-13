@@ -16,20 +16,15 @@ public class  Boss {
 		this.hp -= damage;
 	}
 
-	public void Magic(){
-
-		//魔法を１０回使用
-		for (int i = 0; i <= 10; i++) {
+	public void Magic(int usemp){
+		//MPの残量
+		if ( mp > usemp) {
 
 			//MPの消費
-			mp = mp - 5;
-
-			//MPの残量
-			if ( mp >= 3) {
-				Debug.Log ("魔法攻撃した。残りMPは" + mp);
-			} else {
-				Debug.Log ("MPが足りないため魔法が使えない。");
-			}
+			this.mp -= usemp;
+			Debug.Log ("魔法攻撃した。残りMPは" + mp);
+		} else {
+			Debug.Log ("MPが足りないため魔法が使えない。");
 		}
 	}
 }
@@ -40,10 +35,14 @@ public class TEST : MonoBehaviour {
 		Boss midboss = new Boss ();
 		midboss.Attack ();
 		midboss.Defence (7);
-		midboss.Magic ();
+
+		//魔法を１０回使用
+		for (int i = 0; i <= 10; i++) {
+			//MPを５消費
+			midboss.Magic (5);
+		}
 	}
 	// Update is called once per frame
 	void Update () {
-		
 	}
 }
